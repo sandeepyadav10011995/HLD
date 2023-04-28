@@ -25,8 +25,8 @@ Concurrency -: High
 
 
 **Estimates** -:
-Search side -2 billion * 5 searches per user = 10 billion * 24*3600 ~ 150 K QPS
-Crawler side -: 100billion/14*24*3600 ~ 150K*10/14 ~ 100K QPS 
+Search side -2 billion * 5 searches per user = 10 billion * 24 * 3600 ~ 150 K QPS
+Crawler side -: 100billion/14 * 24 * 3600 ~ 150K * 10/14 ~ 100K QPS 
 
 
 ![image](https://user-images.githubusercontent.com/22426280/234954678-6ee746c4-3fdc-4ef7-b759-be52107af757.png)
