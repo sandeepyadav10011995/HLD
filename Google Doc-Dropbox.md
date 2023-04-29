@@ -118,8 +118,7 @@ __QUESTION__ -: What does the google doc use from the above two startegies?
       2. Delete
       3. Change
      
-__Problem__ -: RACE CONDITION -: This is more like merge conflict in GIT.
-__Solution__ -:
+__Problem__ -: RACE CONDITION :: This is more like merge conflict in GIT. Solution is -:
 1. Opeartional Transaformation
 2. CRDT
 
