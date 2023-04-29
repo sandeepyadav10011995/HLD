@@ -55,7 +55,8 @@ our system receives 0.607 million or 607,000 requests per second.
 ## Data Structure For Storing Prefixes -: TRIE
 #### Scaling Trie Data Structure -:
 <img width="535" alt="Screenshot 2023-04-29 at 6 28 25 PM" src="https://user-images.githubusercontent.com/22426280/235303694-3478e3d8-d198-41e1-88d3-8be7a534aa28.png">
-#### Update the trie
+
+#### Update the Trie
 <img width="936" alt="Screenshot 2023-04-29 at 6 29 56 PM" src="https://user-images.githubusercontent.com/22426280/235303763-8a722e9a-73d3-443c-8ad7-d115288a48b5.png">
 1. We can put up a MapReduce (MR) job to process all of the logging data regularly, let’s say every 15 minutes. 
 2. These MR services calculate the frequency of all the searched phrases in the previous 15 minutes and dump the results into a hash table in a database like Cassandra.
