@@ -48,9 +48,32 @@ Number of daily active users/ Queries handled per second =  80M /8000 = 10,000 s
 ## Building Blocks    
 ![image](https://user-images.githubusercontent.com/22426280/235297151-28eed9b3-34f2-4a59-b78a-91f949958b25.png)
 
+## Components
+1. __API gateway__ -: Edit requests, comments on a document, notifications, authentication, and data storing requests will all go through the API gateway.
+2. __Application servers__ -: The application servers will run business logic and tasks that generally require computational power. For instance, some documents may be converted from one file type to another (for example, from a PDF to a Word document) or support features like import and export. It’s also central to the attribute collection for the recommendation engine
+3. __Data stores__ -: 
+      1. __NoSQL__ for storing user comments for quicker access
+      2. To save the edit history of documents, we can use a __time series database__. 
+      3. We’ll use __blob storage__ to store videos and images within a document.
+      4. Finally, we can use distributed cache like __Redis__ and a CDN to provide end users good performance.
+      5. We use __Redis__ specifically to store different data structures, including user sessions, features for the typeahead            service, and frequently accessed documents. 
+      6. The __CDN__ stores frequently accessed documents and heavy objects, like images and videos.
+4. __Processing queue__ -: Since document editing requires frequently sending small-sized data (usually characters) to the server, it’s a good idea to queue this data for periodic batch processing. We’ll add characters, images, videos, and comments to the processing queue.
+5. We’ll manage document access privileges through the session servers. Essentially, there will also be configuration, monitoring, pub-sub, and logging services that will handle tasks like monitoring and electing leaders in case of server failures, queueing tasks like user notifications, and logging debugging information.
+
 ## High Level Design -: A detailed design of the collaborative document editing service
 ![image](https://user-images.githubusercontent.com/22426280/235297184-6b3f8e6d-8628-4abb-9ee9-be99c2f9e005.png)
 
+## Workflow
+1. __Asynchronous operations__: Notifications, emails, view counts, and comments are asynchronous operations that can be queued through a pub-sub component like Kafka. The API gateway generates these requests and forwards them to the pub-sub module. Users sharing documents can generate notifications through this process.
+2. __Suggestions__: Suggestions are in the form of the typeahead service that offers autocomplete suggestions for typically used words and phrases. The typeahead service can also extract attributes and keywords from within the document and provide suggestions to the user. Since the number of words can be high, we’ll use a NoSQL database for this purpose. In addition, most frequently used words and phrases will be stored in a caching system like Redis.
+3. __Import and export documents__: The application servers perform a number of important tasks, including importing and exporting documents. Application servers also convert documents from one format to another. For example, a .doc or .docx document can be converted in to .pdf or vice versa. Application servers are also responsible for feature extraction for the typeahead service.
+
+## Storage Optimization
+![image](https://user-images.githubusercontent.com/22426280/235298221-0d671e73-a0cc-4847-b016-05d9becbd167.png)
+
+## High Level Design Of the Client Side
+#### In this client is also going to play the major role !!
 
 
 
