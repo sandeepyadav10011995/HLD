@@ -103,8 +103,9 @@ Puts the changes in S3
 File -: training.doc
         10 chunks
         chunk_checksum, doc_id, location, user, version, timestamp, sequence
-__Note__ -: Every chunk is differentiated using CHECKSUM -: Takes the optimization on next level
-            Data Deduplication -: On server, if we have chunk with similar hash(even from other user); we don't need to create another copy.
+__Note__ -: 
+1. Every chunk is differentiated using CHECKSUM -: Takes the optimization on next level.
+2. Data Deduplication -: On server, if we have chunk with similar hash(even from other user); we don't need to create another copy.
             
 ## Data Syncronization
 1. Event Parsing (Character or String wise)
