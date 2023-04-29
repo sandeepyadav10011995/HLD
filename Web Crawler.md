@@ -64,7 +64,8 @@ Since we want to process 10.35PB of data per day the total bandwidth required wo
 
 ## High Level Design : The overall web crawler design
 ![image](https://user-images.githubusercontent.com/22426280/235302125-3e9d0c28-57b7-4231-bf3b-84f7cd98c13a.png)
-
+#### Updated Design 
+<img width="949" alt="Screenshot 2023-04-29 at 5 54 44 PM" src="https://user-images.githubusercontent.com/22426280/235302404-8773b586-732c-42b3-9dbd-e3e1857d1828.png">
 
 #### Questions
 **What if one of the server goes down then how will we restore the state of the document**
