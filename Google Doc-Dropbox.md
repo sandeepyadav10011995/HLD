@@ -73,7 +73,65 @@ Number of daily active users/ Queries handled per second =  80M /8000 = 10,000 s
 ![image](https://user-images.githubusercontent.com/22426280/235298221-0d671e73-a0cc-4847-b016-05d9becbd167.png)
 
 ## High Level Design Of the Client Side
-#### In this client is also going to play the major role !!
+**In this client is also going to play the major role !!**
+
+![image](https://user-images.githubusercontent.com/22426280/235298574-b9208123-5e8b-4a48-8dc0-57bca7771463.png)
+
+1. __INTERNAL METADATA__ -: Maintains chunks,. sequence, file, folder etc.
+2. __CHUNKER__ -: Chunks the file(Split or merge)
+3. __WATCHER__ -: Listens to the remote changes by syncronization services and sync changes on server side. Monitors the local changes as well.  __Notifies Indexer__
+4. __INDEXER__ -: Process the events received from WATCHER.
+      #### EVENTS -: 
+      1. __SYNC EVENTS(Server to Local)__
+      2. __LOCAL TO SERVER__
+      
+      #### Steps
+      1. Update inetrnal metadata db stc with chunks of modified files __CHANGES COMING FROM SERVER !!__
+      2. __If Local Changes__ -: __Indexer__ communicates back with SYNC Service(Which will broadcast to the other connected clients and also updates remote metadata db.) 
+      
+      
+## Messaging Service
+![image](https://user-images.githubusercontent.com/22426280/235299192-a6b82f2f-66a0-4de4-8865-31b9581d3ca2.png)
+
+#### Why there is separate response queue for each client and only one request queue?
+__Reasons__ -: 
+1. Every client is not online all the time.
+2. Request Queue is one because a client can send the request only when he/she is online/alive and they have done remote changes and want to pull when online.
+
+## Block Service
+Puts the changes in S3
+File -: training.doc
+        10 chunks
+        chunk_checksum, doc_id, location, user, version, timestamp, sequence
+__Note__ -: Every chunk is differentiated using CHECKSUM -: Takes the optimization on next level
+            Data Deduplication -: On server, if we have chunk with similar hash(even from other user); we don't need to create another copy.
+            
+## Data Syncronization
+1. Event Parsing (Character or String wise)
+2. Diff SYNC
+
+__QUESTION__ -: What does the google doc use from the above two startegies?
+1. Since websockets are not COST Effective for Google.
+2. That is we use Event Parsing --> via HTTP Parsing
+      1. Insert
+      2. Delete
+      3. Change
+     
+__Problem__ -: RACE CONDITION -: This is more like merge conflict in GIT.
+__Solution__ -:
+1. Opeartional Transaformation
+2. CRDT
+
+
+
+
+
+      
+                  
+
+
+
+
 
 
 
