@@ -30,7 +30,7 @@
 4. Consistency
     * The system must be strongly consistent. 
     * The drivers and riders in an area should have a consistent view of the system.
-5. Fraud Detection
+5. Fraud Detection -: Replicas of our databases.
     * The system should have the ability to detect any fraudulent activity related to payment.
 
 ## Resource Estimations
@@ -103,7 +103,13 @@ __Problem__
     ![image](https://user-images.githubusercontent.com/22426280/235730507-d437a666-8ca9-4dd2-80e4-e6f87be8b6b6.png)
 * Pricing varies by demand.
 * Batch processing would be too slow
-    
+    ![image](https://user-images.githubusercontent.com/22426280/235731321-9217c9d8-6543-49d2-a869-b8ce7e60b23c.png)
+* Needs to efficiently find drivers in an area.
+* Needs to calculate ETA
+    * Uber H3 -: Shard by Cell Id
+    * Cell Id can be calculated from lat/long
+    * One Cell Id can be used to calculate adjacent Cell Ids
+
 
 #### Detailed Design
 <img width="633" alt="Screenshot 2023-05-02 at 9 25 33 PM" src="https://user-images.githubusercontent.com/22426280/235719689-524aa150-ee1a-4118-935a-8860fda9b2eb.png">
@@ -125,6 +131,14 @@ __Problem__
 * The rider contacts the request vehicle service to request a ride. 
 * The rider adds the drop-off location here. 
 * The request vehicle service then communicates with the find driver service to book a vehicle and get the details of the vehicle using the location manager service.
+* When a rider request a ride
+    * Find closest driver using ride service
+    * Tell driver API to accept or decline the ride.
+    * Accepted ?
+        * Notify rider
+        * Driver gets the directions to pickup location.
+    * Declined ?
+        * Repeat with next closest driver.  
 
 ###### Find Driver
 * The find driver service finds the driver who can complete the trip. 
