@@ -1,4 +1,4 @@
-# TypeAhead Generation
+# Typeahead Generation
 
 ## Requirements
 #### Functional requirements
