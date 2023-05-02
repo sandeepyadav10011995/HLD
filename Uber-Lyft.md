@@ -92,7 +92,29 @@ __Let’s calculate the total storage required for Uber for a year:__
 
 ![image](https://user-images.githubusercontent.com/22426280/235707357-b3841184-af80-46d2-a2b6-51fa37bec646.png)
 
-__Problem__
+## API Design
+#### Update Driver Location
+__API Call__ : updateDriverLocation(driverId, oldLat, oldLong, newLat, newLong)
+
+#### Find nearby drivers
+__API Call__ : findNearbyDrivers(riderId, lat, long)
+
+#### Request A Ride
+__API Call__ : requestRide(riderId, lat, long, dropOfflat, dropOffLong, typeOfVehicle)
+
+#### Show Driver ETA
+__API Call__ : showETA(driverId, eta)
+
+#### Confirm PickUp
+__API Call__ : confirmPickUp(driverId, riderId, timestamp)
+
+#### Show Trip Updates
+__API Call__ : showTripUpdates(tripId, riderId, driverId, driverLat, driverLong, timeElapsed, timeRemaining)
+
+#### End Trip
+__API Call__ : endTrip(tripId, riderId, driverId, timeElapsed, lat, long)
+
+## Problem
 * How to handle large number of users. 
 * Lots of real-time data -: __HTTP Polling or Websockets__
 * Serve Map images ? ==> Mapbox, Google Maps and many more..
