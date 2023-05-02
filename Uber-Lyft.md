@@ -100,6 +100,8 @@ __Problem__
 * Get Directions  ==> Mapbox, Google Maps and many more..
 * Rider needs to pay; API needs to know when payment finishes processing
 * Driver needs to get paid
+* Uber uses Double Entry Book-Keeping
+    * Double-entry bookkeeping, also known as, double-entry accounting, is a method of bookkeeping that relies on a two-sided accounting entry to maintain financial information. Every entry to an account requires a corresponding and opposite entry to a different account
     ![image](https://user-images.githubusercontent.com/22426280/235730507-d437a666-8ca9-4dd2-80e4-e6f87be8b6b6.png)
 * Pricing varies by demand.
 * Batch processing would be too slow
