@@ -33,6 +33,8 @@
 5. Fraud Detection
     * The system should have the ability to detect any fraudulent activity related to payment.
 
+## Resource Estimations
+
 
 
 
