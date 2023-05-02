@@ -34,7 +34,44 @@
     * The system should have the ability to detect any fraudulent activity related to payment.
 
 ## Resource Estimations
+#### Assumptions
+Let’s estimate the resources for our design. 
+* 500 Million Riders
+* 5 Million Drivers. 
+* We’ll assume the following numbers for our estimates:
+    * Daily Active Riders ~ 20 Million
+    * Daily Active Drivers ~ 3 Million
+    * Daily Trips ~ 20 Million Trips
+    * All active drivers send a notification of their current location every four seconds.
 
+#### Storage Estimations
+##### Riders Metadata
+* Assuming 1000 Bytes to store each rider's info such as Id, Name, Email, etc
+* To store 500 Million Riders   
+    * 500 * 10^6 * 1000 = 500 GB
+* Additionally, if we have around 500,000 new riders registered daily, we’ll need a further 500 MB to store them.
+
+##### Drivers Metadata
+* Assuming 1000 Bytes to store each rider's info such as Id, Name, Email, etc
+* To store 5 Million Riders   
+    * 5 * 10^6 * 1000 = 5 GB
+* Additionally, if we have around 100,00 new drivers registered daily, we’ll need around 100 MB to store them.
+
+##### Trips Metadata
+* Assuming 100 Bytes to store single trip information, including trip ID, rider ID, driver ID, and so on. 
+* To store 20 million daily rides, we need
+    * 20 * 10^6 * 100 = 2 GB
+
+__Let’s calculate the total storage required for Uber in a single day:__
+Storage for daily trips + Storage for new drivers + Storage for new riders + Storage required for drivers location
+= 2GB + 500MB + 100MB + 180MB ~ 2.78GB
+
+__Let’s calculate the total storage required for Uber for a year:__
+= 2.78GB * 365 ~ 1.01 TB
+
+#### Bandwidth Estimations
+
+ 
 
 
 
