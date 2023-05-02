@@ -85,6 +85,79 @@ __Let’s calculate the total storage required for Uber for a year:__
 <img width="479" alt="Screenshot 2023-05-02 at 8 12 41 PM" src="https://user-images.githubusercontent.com/22426280/235700665-f9b4c30c-451a-4b34-84f1-67ff70ac4f5d.png">
 
  
+## High Level Design
 
+#### Trip Design
+<img width="628" alt="Screenshot 2023-05-02 at 9 06 56 PM" src="https://user-images.githubusercontent.com/22426280/235715051-013c0516-f317-429f-bb6b-fc1fe7bb58e6.png">
+
+![image](https://user-images.githubusercontent.com/22426280/235707357-b3841184-af80-46d2-a2b6-51fa37bec646.png)
+
+__Problem__
+* How to handle large number of users. 
+* Lots of real-time data -: __HTTP Polling or Websockets__
+* Serve Map images ? ==> Mapbox, Google Maps and many more..
+* Convert Street Address to lat/long  ==> Mapbox, Google Maps and many more..
+* Get Directions  ==> Mapbox, Google Maps and many more..
+* Rider needs to pay; API needs to know when payment finishes processing
+* Driver needs to get paid
+    ![image](https://user-images.githubusercontent.com/22426280/235730507-d437a666-8ca9-4dd2-80e4-e6f87be8b6b6.png)
+* Pricing varies by demand.
+* Batch processing would be too slow
+    
+
+#### Detailed Design
+<img width="633" alt="Screenshot 2023-05-02 at 9 25 33 PM" src="https://user-images.githubusercontent.com/22426280/235719689-524aa150-ee1a-4118-935a-8860fda9b2eb.png">
+
+##### Components
+###### Location Manager
+* The riders and drivers are connected to the location manager service.
+* This service shows the nearby drivers to the riders when they open the application. 
+* This service also receives location updates from the drivers every four seconds.
+* The location of drivers is then communicated to the quadtree map service to determine which segment the driver belongs to on a map. 
+* The location manager saves the last location of all drivers in a database and saves the route followed by the drivers on a trip.
+
+###### Quadtree map service
+* The quadtree map service updates the location of the drivers. 
+* The main problem is how we deal with finding nearby drivers efficiently.
+* A quadtree is a tree data structure in which each internal node has exactly four children. Quadtrees are the two-dimensional analog of octrees and are most often used to partition a two-dimensional space by recursively subdividing it into four quadrants or regions. The data associated with a leaf cell varies by application, but the leaf cell represents a “unit of interesting spatial information”.
+* To overcome the above problem, we can use a hash table to store the latest position of the drivers and update our quadtree occasionally, say after 10–15 seconds. We can update the driver’s location in the quadtree around every 15 seconds instead of four seconds, and we use a hash table that updates every four seconds and reflects the drivers’ latest location. By doing this, we use fewer resources and time.
+###### Request Vehicle
+* The rider contacts the request vehicle service to request a ride. 
+* The rider adds the drop-off location here. 
+* The request vehicle service then communicates with the find driver service to book a vehicle and get the details of the vehicle using the location manager service.
+
+###### Find Driver
+* The find driver service finds the driver who can complete the trip. 
+* It sends the information of the selected driver and the trip information back to the request vehicle service to communicate the details to the rider. 
+* The find driver service also contacts the trip manager to manage the trip information.
+
+###### Trip Manager
+* The trip manager service manages all the trip-related tasks. 
+* It creates a trip in the database and stores all the information of the trip in the database.
+
+###### ETA Service
+* The ETA service deals with the estimated time of arrival. 
+* It shows riders the pickup ETA when their trip is scheduled. 
+* This service considers factors such as route and traffic. 
+* The two basic components of predicting an ETA given an origin and destination on a road network are the following:
+    * Calculate the shortest route from origin to destination.
+    * Compute the time required to travel the route.
+
+
+## Database
+#### Storage Schema
+* Riders
+* Drivers
+* Driver Location
+* Trips
+<img width="631" alt="Screenshot 2023-05-02 at 9 49 55 PM" src="https://user-images.githubusercontent.com/22426280/235725426-4f82fd0a-c6f8-4e6e-8aa2-6b04cb99b1ab.png">
+
+##### Trips
+![image](https://user-images.githubusercontent.com/22426280/235728615-1afded7f-ea4c-4078-a66a-464dc8e2a25d.png)
+
+###### Global Indexing
+* Global partitioned index contains keys from multiple table partitions in a single index partition. 
+* This type of index is created using the GLOBAL clause during index creation. 
+* A global index can be partitioned or non-partitioned (default).
 
 
