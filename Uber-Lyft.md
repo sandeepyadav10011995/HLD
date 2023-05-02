@@ -70,6 +70,19 @@ __Let’s calculate the total storage required for Uber for a year:__
 = 2.78GB * 365 ~ 1.01 TB
 
 #### Bandwidth Estimations
+* We’ll only consider drivers’ location updates and trip data for bandwidth calculation since other factors don’t require significant bandwidth. 
+* We have 20 million daily rides, which means we have approximately 232 trips per second.
+* Now, each trip takes around 100 Bytes. So, it takes around 23 KB per second of bandwidth ~ 185 kbps
+* As already stated, the driver’s location is updated every four seconds. If we receive the driver’s ID (3 Bytes) and location (16 Bytes), our application will take the following bandwidth: 3Million * (3+ 16) = 57MB * 8 ~ 114Mbps
+* __Total bandwidth__ = 185kbps + 114Mbps ~ 114.19Mbps
+
+#### Number of servers estimations
+* DAU = 20 Million
+* RPS of a server = 8000
+* __Number of servers required__ = 20 * 10^6 / 8000 ~ 2500 servers
+
+## Building Blocks
+<img width="479" alt="Screenshot 2023-05-02 at 8 12 41 PM" src="https://user-images.githubusercontent.com/22426280/235700665-f9b4c30c-451a-4b34-84f1-67ff70ac4f5d.png">
 
  
 
