@@ -1,6 +1,6 @@
 ## Understanding the Basics of System Design
 
-#### a. Key concepts and principles
+### a. Key concepts and principles
 
 ##### Scalability
 * The ability of a system to handle increasing amounts of load or traffic. 
@@ -49,6 +49,96 @@
 I**t’s important to be familiar with these concepts and understand how they apply to different types of systems.** 
 * For example, a real-time financial trading system would need to have a high level of consistency and low latency. 
 * While a social media platform might prioritize high availability and partition tolerance over consistency
+
+### b. Common design patterns:
+
+##### Microservices
+* It is a software architecture pattern in which an application is broken down into a collection of small, independent services that communicate with each other over a network. 
+* Each service is responsible for a specific functionality and is developed, deployed, and scaled independently. 
+* Microservices offer several benefits, such as increased scalability, improved fault tolerance, and faster deployment cycles. 
+* However, they also introduce additional complexity, such as the need for service discovery and inter-service communication.
+
+##### Event sourcing
+* Event sourcing is a pattern in which the state of an application is represented as a stream of events, rather than a snapshot of its current state. 
+* This pattern is often used in systems that need to handle a large number of concurrent updates, such as financial systems and gaming platforms. 
+* Event sourcing allows for easy replay of events, which can be useful for debugging and auditing. 
+* However, it also requires additional storage and computational resources to maintain the event stream.
+
+##### Sharding
+* Sharding is a technique for horizontally partitioning data across multiple machines in order to improve scalability and performance. 
+* In a sharded system, each machine is responsible for a specific subset of the data, and queries are routed to the appropriate machine based on the data’s partition key. 
+* Sharding can be used to distribute the load on a system, improve read and write performance, and increase the overall capacity of a system. 
+* However, it also introduces additional complexity, such as the need for consistent hashing, data replication, and partition-aware clients
+
+##### CQRS (Command Query Responsibility Segregation)
+* CQRS is a pattern that separates the read and write operations of a system into separate models, allowing for optimized performance and scalability. 
+* This pattern can be useful in systems that handle a high volume of read and write operations, such as e-commerce websites. 
+* CQRS allows for different data stores and caching strategies to be used for read and write operations, improving the performance of both. 
+* However, it also requires more complex design and more effort to maintain two separate models of the data.
+
+##### Reverse proxy
+* A reverse proxy is a server that sits in front of one or more web servers and forwards client requests to the appropriate server. 
+* It can be used to improve security, performance, and scalability of a system. 
+* It can also be used to provide additional functionality such as SSL termination, caching, and compression.
+![image](https://user-images.githubusercontent.com/22426280/236138231-e53b0e68-f935-4af6-90b4-302146c4dbef.png)
+
+##### Circuit Breaker
+* A Circuit breaker is a design pattern that can be used to prevent cascading failures in a distributed system. 
+* It works by monitoring the health of a service and, when it detects an issue, it “trips” and prevents further requests from being sent to that service. 
+* This helps to prevent a single point of failure from bringing down the entire system.
+
+##### Backpressure
+* Backpressure is a technique used to control the rate at which data is processed in a system, preventing it from being overwhelmed. 
+* This can be done by buffering incoming data and only processing it at a specific rate, or by rejecting incoming data if the system is unable to handle it.
+
+##### Object Pool
+* An object pool is a design pattern that is used to improve the performance of a system by reusing objects, rather than creating new ones. 
+* Object pools are often used to manage the lifecycle of expensive resources, such as database connections or threads.
+
+### c. Familiarity with different types of databases
+
+##### Relational databases
+* Relational databases are the most common type of database and store data in tables, using SQL (Structured Query Language) for querying and manipulating that data. 
+* They are based on the relational model, which organizes data into one or more tables, with each table consisting of rows and columns. 
+* Popular examples of relational databases include __MySQL, PostgreSQL, and Oracle__.
+
+##### NoSQL databases
+* NoSQL databases, also known as “not only SQL” databases, do not use a fixed schema and are optimized for handling large amounts of unstructured data. 
+* They are designed to handle the scale and performance requirements of modern web and mobile applications. 
+* NoSQL databases can be classified into different types, such as document databases, key-value stores, graph databases, and column-family stores. 
+* Popular examples of NoSQL databases include __MongoDB, Cassandra, and Redis__.
+
+##### Distributed key-value stores
+* Distributed key-value stores are a type of NoSQL database that stores data as key-value pairs and is designed for horizontal scalability. 
+* They are often used as a caching layer or to store session data. 
+* Popular examples of distributed key-value stores include __Riak and Redis__.
+
+##### Document databases
+* Document databases store data as semi-structured documents, such as JSON or XML, and are optimized for storing and querying large amounts of data. 
+* They are often used for applications that require flexible data modeling and rich querying capabilities. 
+* Popular examples of document databases include __MongoDB and Couchbase__.
+
+##### Graph databases
+* Graph databases are optimized for storing and querying data with complex relationships. 
+* They store data as nodes and edges, rather than tables and rows, and are often used for applications that involve social networking, recommendation systems, and fraud detection.
+* Popular examples of graph databases include __Neo4j and JanusGraph__.
+
+##### Time-series databases
+* Time-series databases are optimized for storing and querying time-stamped data. 
+* They are often used for applications that involve monitoring, IoT, and financial data. 
+* Popular examples of time-series databases include __InfluxDB, OpenTSDB, and Prometheus__.
+
+Types of NoSQL databases
+
+### d. Familiarity with different types of distributed systems and algorithms.
+##### Merkle Tree
+##### Consistent Hashing
+##### Read Repair
+##### Gossip Protocol
+##### Bloom Filter
+##### Heartbeat
+##### CAP and PACELC Theorems
+
 
 
 
