@@ -43,4 +43,33 @@ Daily transactions:
 * Availablity: non-HA consistency: eventual capacity:
 * DB -: Obj storage
 
+## High-Level Structure
+![Screenshot 2023-05-08 at 11 24 26 AM](https://user-images.githubusercontent.com/22426280/236746706-6d7c5f73-39eb-414c-a690-b80f8fbe1689.png)
+
+<img width="733" alt="Screenshot 2023-05-08 at 11 25 13 AM" src="https://user-images.githubusercontent.com/22426280/236746641-6e75cec1-e306-4b87-a924-671bb3181b8a.png">
+
+#### Disaster recovery:
+###### Atomic operations:
+* DB & message queue, maintain state over reboot
+* Hand scanner
+###### Image scanner: 
+* it's going to finish once loading a book
+* send out the notificaiton (webhook)
+###### Valid state:
+* special book returnsi only valid after scanner sends us the notification (urls of images)
+* if crashes before receiving he notification re-scan
+
+<img width="928" alt="Screenshot 2023-05-08 at 11 28 10 AM" src="https://user-images.githubusercontent.com/22426280/236747027-a00d95c2-6566-4b1f-8291-122289b59f84.png">
+
+<img width="872" alt="Screenshot 2023-05-08 at 11 28 54 AM" src="https://user-images.githubusercontent.com/22426280/236747099-535689e5-ee84-4925-8253-d65875a9fbbb.png">
+
+<img width="931" alt="Screenshot 2023-05-08 at 11 29 20 AM" src="https://user-images.githubusercontent.com/22426280/236747236-14d82597-5b31-417a-9439-d63547463754.png">
+
+
+
+
+
+
+
+
 
