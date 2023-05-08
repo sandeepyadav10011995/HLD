@@ -9,3 +9,38 @@
 * This lets libraries visually inspect the state of a book over time. 
 * E.g. If a librarian notices gum on the cover, I they can refer to the condition report to determine which patron returned the book with gum on it.
 
+#### webserver & webhook
+* The scanner has a tiny built-in webserver. 
+* The urls would be served by the webserver and they do pointito images saved in internal storage
+* For the webhook, you can think it as a notification where the app can register an API to receive that notification. 
+* And scanner is going to send a post request to that API when scanning finishes.
+
+#### Condition reports
+* Condition reports take on the order of minutes to generate, due to the number of high resolution images present and extra fancy image filtering and analysis. 
+* Librarians, being busy people, don't want to wait for a condition report to be created on demand every time it's requested.
+* The system should generate the condition report as soon as possible so it's available to view or donnioad.
+
+#### Basic Info
+* no private cloud, 3 servers max for the system
+* availability requirement: don't have to be HA, but needs to be correct can afford several minutes breakage when system reboots
+#### Success metrics:
+* % of condition reports coverage on special books
+* Failure rate of report generation on special book returns + Average processing tiem for the checkout/retur
+#### Functional
+* regular checkout & return process
+* browse & search for a book
+* browse history on a book / patron + dashboard
+* scanning special books and generating reports
+Concurrency
+Daily transactions:
+* 100k patrons
+* 1 book per month per patron
+* 100k / 30 = 4k per day = 500 per hour a 8 transactions per minute * 2 = 16 per minute
+* peaks: 3 + 16 = 50 per minute
+* 20 stations, 6 always open, and 14 for peaks + 3 transactions per minute per station for peak
+* for average: 3 transaction per minute
+#### Non-Functional
+* Availablity: non-HA consistency: eventual capacity:
+* DB -: Obj storage
+
+
